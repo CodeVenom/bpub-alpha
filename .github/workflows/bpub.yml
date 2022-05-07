@@ -25,3 +25,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: get caller identity
         run: aws sts get-caller-identity
+      - name: sync
+        run: |
+          cd temp
+          aws s3 sync . s3://jj-blog-test/temp/
