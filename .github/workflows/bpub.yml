@@ -1,0 +1,27 @@
+name: bpub-alpha
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+concurrency:
+  group: bpub
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: assume role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: get caller identity
+        run: aws sts get-caller-identity
