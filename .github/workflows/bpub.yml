@@ -28,4 +28,5 @@ jobs:
       - name: sync
         run: |
           cd temp
+          ls -A
           aws s3 sync . s3://jj-blog-test/temp/
