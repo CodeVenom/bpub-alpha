@@ -27,6 +27,8 @@ jobs:
         run: aws sts get-caller-identity
       - name: prepare temp dir
         run: mkdir -p temp
+      - name: create pages
+        run: .github/workflows/pages.sh create
       - name: sync
         run: |
           cd temp
