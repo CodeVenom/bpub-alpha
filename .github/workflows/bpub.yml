@@ -25,6 +25,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: get caller identity
         run: aws sts get-caller-identity
+      - name: prepare temp dir
+        run: mkdir -p temp
       - name: sync
         run: |
           cd temp
