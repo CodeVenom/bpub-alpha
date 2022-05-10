@@ -1,13 +1,23 @@
 #!/bin/bash
 
 create() {
+  # TODO: pre-bake page without content
   local snippets="meta style"
+  local pages=$(ls pages/)
 
-  cp templates/page.html temp/test
+  for page in $pages; do
+    cp templates/page.html "temp/$page"
 
-  for x in $snippets; do
-    sed -i -e "/<jj-$x><\/jj-$x>/r snippets/$x.html" temp/test
-    sed -i -e "/<jj-$x><\/jj-$x>/d" temp/test
+    for snippet in $snippets; do
+      sed -i -e "/<jj-$snippet><\/jj-$snippet>/r snippets/$snippet.html" "temp/$page"
+      sed -i -e "/<jj-$snippet><\/jj-$snippet>/d" "temp/$page"
+    done
+
+    # TODO: check if html is already there => html has precedence, otherwise convert md to html
+    # TODO: copy images to temp as well
+    pandoc -f markdown_strict -t html -o "pages/$page/$page.html" "pages/$page/$page.md"
+    sed -i -e "/<jj-content><\/jj-content>/r pages/$page/$page.html" "temp/$page"
+    sed -i -e "/<jj-content><\/jj-content>/d" "temp/$page"
   done
 }
 
