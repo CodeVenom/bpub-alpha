@@ -19,7 +19,7 @@ create() {
     sed -i -e "/<jj-content><\/jj-content>/r pages/$page/$page.html" "temp/$page"
     sed -i -e "/<jj-content><\/jj-content>/d" "temp/$page"
 
-    cp -R "pages/$page/assets/*" "temp/assets/"
+    cp -R "pages/$page/assets/" "temp/"
   done
 }
 
