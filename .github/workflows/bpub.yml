@@ -29,11 +29,11 @@ jobs:
       - name: get caller identity
         run: aws sts get-caller-identity
       - name: prepare temp dir
-        run: mkdir -p temp
+        run: mkdir -p temp/assets
       - name: create pages
         run: .github/workflows/pages.sh create
       - name: sync
         run: |
           cd temp
           ls -A
-          aws s3 sync . s3://jj-blog-test/temp/ --delete
+          aws s3 sync . s3://jj-blog-test/pages/ --delete

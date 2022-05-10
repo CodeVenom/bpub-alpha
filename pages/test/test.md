@@ -12,7 +12,7 @@ some text
 1. numbered
 2. list
 
-![goofy](goofy.jpeg "goofy")
+![goofy](assets/goofy.jpeg "goofy")
 
 <details>
   <summary>spoiler warning</summary>
