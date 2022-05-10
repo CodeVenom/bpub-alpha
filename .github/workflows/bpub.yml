@@ -36,6 +36,5 @@ jobs:
         run: |
           cd temp
           ls -A
-          aws s3 sync . s3://jj-blog-test/pages/ --delete
-          aws s3 mv s3://jj-blog-test/pages/ s3://jj-blog-test/pages/ --exclude "*" --include "*.html" \
-            --no-guess-mime-type --content-type="text/html" --metadata-directive="REPLACE" --recursive
+          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*.*" --content-type="text/html"
+          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*" --include "*.*"
