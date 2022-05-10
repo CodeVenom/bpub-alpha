@@ -32,6 +32,7 @@ jobs:
         run: mkdir -p temp/assets
       - name: create pages
         run: .github/workflows/pages.sh create
+      # TODO: upload index contents directly to bucket's top level
       - name: sync
         run: |
           cd temp
