@@ -1,0 +1,83 @@
+#menu {
+    display: block;
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    right: 5px;
+    bottom: 5px;
+    left: 0;
+    padding: 64px 10px;
+    background: aliceblue;
+    box-shadow: 0 0 5px 1px black;
+    transition: transform .8s ease-in-out;
+    transform: translateX(-100%);
+}
+
+#menu.active {
+    transform: translateX(0);
+}
+
+#menu>a {
+    display: table;
+    color: black;
+    font-size: 36px;
+    line-height: 42px;
+    text-decoration: none;
+    padding: 8px 14px 8px 8px;
+    border-left: 6px solid black;
+    border-radius: 50px;
+    transition-duration: .8s;
+    transition-property: background-color, color;
+    transition-timing-function: ease-in-out;
+}
+
+#menu>a:hover {
+    background-color: black;
+    color: aliceblue;
+}
+
+#menu-button {
+    position: fixed;
+    z-index: 1000;
+    top: 10px;
+    left: 10px;
+    height: 42px;
+    width: 42px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.g-menu {
+    stroke: black;
+    stroke-linecap: round;
+    stroke-width: 1px;
+}
+
+.g-menu > line {
+    transition: transform .8s cubic-bezier(0,2,1,2);
+    transform-origin: center;
+}
+
+.g-menu.active > line:nth-child(1) {
+    transform: rotate(45deg) translateY(25%);
+}
+
+.g-menu.active > line:nth-child(2) {
+    transform: rotate(45deg) translateY(25%);
+}
+
+.g-menu.active > line:nth-child(3) {
+    transform: translateX(75%);
+}
+
+.g-menu.active > line:nth-child(4) {
+    transform: translateX(-75%);
+}
+
+.g-menu.active > line:nth-child(5) {
+    transform: rotate(-45deg) translateY(-25%);
+}
+
+.g-menu.active > line:nth-child(6) {
+    transform: rotate(-45deg) translateY(-25%);
+}

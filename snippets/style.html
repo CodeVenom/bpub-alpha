@@ -3,7 +3,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
     html {
-        font-size: 100%;
+        font-family: 'Roboto Mono', Geneva, Verdana, monospace;
+        font-size: 1rem;
+    }
+
+    #menu {
+        display: none;
     }
 
     .blog-article {
@@ -11,63 +16,60 @@
         top: 50px;
         right: 0;
         bottom: 0;
-        left:  0;
+        left: 0;
 
         background: #fafafa;
 
         padding: 25px 50px;
 
-        font-family: 'Roboto Mono', Geneva, Verdana, monospace;
-        font-size: 1rem;
-
         box-shadow: 0 0 5px 1px black;
     }
 
-    .blog-article>h1 {
+    .blog-article > h1 {
         font-size: 2rem;
         line-height: 2.5rem;
         margin-bottom: 2rem;
         max-width: 43rem;
     }
 
-    .blog-article>h2 {
+    .blog-article > h2 {
         font-size: 1.75rem;
         line-height: 2.25rem;
         margin-bottom: 2rem;
         max-width: 37.5rem;
     }
 
-    .blog-article>img {
+    .blog-article > img {
         max-width: 100%;
     }
 
     @media (min-width: 66rem) {
-        .blog-article>h1 {
-            font-size: calc(2.625rem + .375 * ((100vw - 66rem)/ 16));
-            line-height: calc(3.125rem + .375 * ((100vw - 66rem)/ 16));
-            max-width: calc(59rem + 8.5 * ((100vw - 66rem)/ 16));
+        .blog-article > h1 {
+            font-size: calc(2.625rem + .375 * ((100vw - 66rem) / 16));
+            line-height: calc(3.125rem + .375 * ((100vw - 66rem) / 16));
+            max-width: calc(59rem + 8.5 * ((100vw - 66rem) / 16));
         }
 
-        .blog-article>h2 {
-            font-size: calc(1.75rem + .25 * ((100vw - 66rem)/ 16));
-            line-height: calc(2.25rem + .25 * ((100vw - 66rem)/ 16));
-            max-width: calc(37.5rem + 7.5 * ((100vw - 66rem)/ 16));
+        .blog-article > h2 {
+            font-size: calc(1.75rem + .25 * ((100vw - 66rem) / 16));
+            line-height: calc(2.25rem + .25 * ((100vw - 66rem) / 16));
+            max-width: calc(37.5rem + 7.5 * ((100vw - 66rem) / 16));
         }
     }
 
     @media (min-width: 42rem) {
-        .blog-article>h1 {
-            font-size: calc(2.25rem + .375 * ((100vw - 42rem)/ 24));
-            line-height: calc(2.75rem + .375 * ((100vw - 42rem)/ 24));
-            max-width: calc(50.5rem + 8.5 * ((100vw - 42rem)/ 24));
+        .blog-article > h1 {
+            font-size: calc(2.25rem + .375 * ((100vw - 42rem) / 24));
+            line-height: calc(2.75rem + .375 * ((100vw - 42rem) / 24));
+            max-width: calc(50.5rem + 8.5 * ((100vw - 42rem) / 24));
         }
     }
 
     @media (min-width: 20rem) {
-        .blog-article>h1 {
-            font-size: calc(2rem + .25 * ((100vw - 20rem)/ 22));
-            line-height: calc(2.5rem + .25 * ((100vw - 20rem)/ 22));
-            max-width: calc(43rem + 7.5 * ((100vw - 20rem)/ 22));
+        .blog-article > h1 {
+            font-size: calc(2rem + .25 * ((100vw - 20rem) / 22));
+            line-height: calc(2.5rem + .25 * ((100vw - 20rem) / 22));
+            max-width: calc(43rem + 7.5 * ((100vw - 20rem) / 22));
         }
     }
 </style>

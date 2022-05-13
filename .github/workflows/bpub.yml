@@ -33,7 +33,11 @@ jobs:
       - name: create pages
         run: .github/workflows/pages.sh create
       # TODO: upload index contents directly to bucket's top level
-      - name: sync
+      - name: sync index
+        run: |
+          cd index
+          aws s3 sync . s3://jj-blog-test/ --delete
+      - name: sync pages
         run: |
           cd temp
           ls -R

@@ -1,17 +1,26 @@
 #!/bin/bash
 
 create() {
-  local pageTemplate="templates/page.html"
-  local prebakedPage="templates/prebaked.html"
-  local snippets="meta style"
+  local config="config/j.json"
+  local configKeys
+  configKeys=$(jq -r 'keys | .[]' "$config")
   local pages
   pages=$(ls pages/)
+  local pageTemplate="templates/page.html"
+  local prebakedPage="templates/prebaked.html"
+  local snippets="meta nav style js-core"
 
+  cp "snippets/j.css" "temp/"
+  cp "snippets/j.js" "temp/"
   cp "$pageTemplate" "$prebakedPage"
 
   for snippet in $snippets; do
     sed -i -e "/<jj-$snippet><\/jj-$snippet>/r snippets/$snippet.html" "$prebakedPage"
     sed -i -e "/<jj-$snippet><\/jj-$snippet>/d" "$prebakedPage"
+  done
+
+  for configKey in $configKeys; do
+    sed -i -e "s%\\\$jj{$configKey}%$(jq -e -r --arg key "$configKey" '.[$key]' "$config")%g" "$prebakedPage"
   done
 
   for page in $pages; do
