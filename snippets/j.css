@@ -38,17 +38,19 @@
 
 #menu-button {
     position: fixed;
+    box-sizing: border-box;
     z-index: 1000;
-    top: 10px;
-    left: 10px;
+    top: 4px;
+    left: 4px;
     height: 42px;
     width: 42px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 10px;
+    background-color: rgb(0,0,0,.5);
 }
 
 .g-menu {
-    stroke: black;
+    stroke: white;
     stroke-linecap: round;
     stroke-width: 1px;
 }
