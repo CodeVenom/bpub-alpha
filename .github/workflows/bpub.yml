@@ -32,7 +32,6 @@ jobs:
         run: mkdir -p temp/assets
       - name: create pages
         run: .github/workflows/pages.sh create
-      # TODO: upload index contents directly to bucket's top level
       - name: sync index
         run: |
           cd index
@@ -44,3 +43,6 @@ jobs:
           aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*.*" --content-type="text/html" \
             --no-guess-mime-type --metadata-directive "REPLACE"
           aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*" --include "*.*"
+      # TODO: invalidate cloudfront cache?
+#      - name: invalidate cloudfront cache
+#        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

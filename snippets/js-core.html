@@ -1,3 +1,4 @@
 <script defer="defer" type="text/javascript">
     document.addEventListener('mousemove',function(){let h=document.head;let l=document.createElement('link');l.href='j.css';l.rel='stylesheet';l.type='text/css';h.append(l);let s=document.createElement('script');s.src='j.js';s.type='text/javascript';h.append(s);},{once:true});
+    document.addEventListener('scroll',function(){document.dispatchEvent(new Event('mousemove'));},{once:true});
 </script>
