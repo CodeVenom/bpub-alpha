@@ -1,12 +1,14 @@
 #menu {
     display: block;
     position: fixed;
+    box-sizing: border-box;
     z-index: 900;
     top: 0;
-    right: 5px;
     bottom: 5px;
     left: 0;
-    padding: 64px 10px;
+    width: 400px;
+    max-width: 100%;
+    padding: 64px 0;
     background: aliceblue;
     box-shadow: 0 0 5px 1px black;
     transition: transform .8s ease-in-out;
@@ -18,14 +20,15 @@
 }
 
 #menu>a {
-    display: table;
+    display: block;
+    box-sizing: border-box;
     color: black;
     font-size: 36px;
     line-height: 42px;
     text-decoration: none;
     padding: 8px 14px 8px 8px;
     border-left: 6px solid black;
-    border-radius: 50px;
+    border-radius: 0;
     transition-duration: .8s;
     transition-property: background-color, color;
     transition-timing-function: ease-in-out;
