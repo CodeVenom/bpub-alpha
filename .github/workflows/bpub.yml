@@ -2,7 +2,7 @@ name: bpub-alpha
 on:
   push:
     branches:
-      - main
+      - none
 permissions:
   contents: read
   id-token: write
