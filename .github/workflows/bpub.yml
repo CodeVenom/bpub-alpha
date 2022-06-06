@@ -2,8 +2,7 @@ name: bpub-alpha
 on:
   push:
     branches:
-      # TODO: update workflow and revert to main branch
-      - none
+      - main
 permissions:
   contents: read
   id-token: write
