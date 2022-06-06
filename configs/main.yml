@@ -1,2 +1,4 @@
 main:
+  authors:
+    jj: 'Juri Jaeger, Lead DevOps Engineer'
   base_url: 'https://blog.yay-store.com/'

@@ -3,7 +3,7 @@
 * category 1
 * category 2
 
-14 May 2022, by Juri Jaeger, Lead DevOps Engineer
+14 May 2022, by {{ values.main.authors.jj }}
 
 ## write something awesome
 
