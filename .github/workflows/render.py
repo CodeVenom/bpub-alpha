@@ -73,9 +73,14 @@ class Renderer:
                 }
             }
             with open(self.dir_out + page['name'], 'w') as f:
+                # TODO: introduce convenience function for text/string render
                 f.write(
                     self.render(
-                        self.text(self.pre_baked_page), values
+                        self.text(
+                            self.render(
+                                self.text(self.pre_baked_page), values
+                            )
+                        ), values
                     )
                 )
         return 0
