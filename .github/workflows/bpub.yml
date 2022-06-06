@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install python3.9
-          pip3 install -r .github/workflows/req.txt
+          python3.9 -m pip install -r .github/workflows/req.txt
       - name: assume role
         uses: aws-actions/configure-aws-credentials@v1
         with:
