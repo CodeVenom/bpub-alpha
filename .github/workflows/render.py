@@ -2,6 +2,7 @@ import glob
 import markdown
 import os
 import re
+import shutil
 import sys
 import yaml
 
@@ -35,6 +36,11 @@ class Renderer:
         pages = {}
         for page in os.listdir(self.dir_pages):
             md = page + '.md'
+            shutil.copytree(
+                src=self.dir_pages + page + '/assets',
+                dst=self.dir_out + 'assets',
+                dirs_exist_ok=True
+            )
             with open(self.dir_pages + page + '/' + md) as f:
                 # TODO: extract categories and use as filterable classes
                 pages[page] = {
