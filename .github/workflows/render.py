@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 
 class Renderer:
     dir_configs = 'configs/'
-    dir_out = 'temp/'
+    dir_out = 'upload/'
     dir_pages = 'pages/'
     dir_snippets = 'snippets/'
 

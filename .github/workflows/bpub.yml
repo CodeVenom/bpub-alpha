@@ -2,6 +2,7 @@ name: bpub-alpha
 on:
   push:
     branches:
+      # TODO: update workflow and revert to main branch
       - none
 permissions:
   contents: read
@@ -28,8 +29,8 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: get caller identity
         run: aws sts get-caller-identity
-      - name: prepare temp dir
-        run: mkdir -p temp/assets
+      - name: prepare upload dir
+        run: mkdir -p upload/assets
       - name: create pages
         run: .github/workflows/pages.sh create
       - name: sync index
@@ -38,7 +39,7 @@ jobs:
           aws s3 sync . s3://jj-blog-test/ --delete
       - name: sync pages
         run: |
-          cd temp
+          cd upload
           ls -R
           aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*.*" --content-type="text/html" \
             --no-guess-mime-type --metadata-directive "REPLACE"
