@@ -14,6 +14,7 @@ class Renderer:
     dir_out = 'upload/'
     dir_pages = 'pages/'
     dir_snippets = 'snippets/'
+    dir_static = 'static/'
 
     def __init__(self):
         self.configs = type('', (object,), {
@@ -33,6 +34,13 @@ class Renderer:
 
     # - - - - - actions - - - - -
     def all(self):
+        # copy static assets
+        shutil.copytree(
+            src=self.dir_static,
+            dst=self.dir_out,
+            dirs_exist_ok=True
+        )
+        # create pages dict
         pages = {}
         for page in os.listdir(self.dir_pages):
             md = page + '.md'
@@ -54,7 +62,7 @@ class Renderer:
                 }
                 f.seek(0, 0)
                 pages[page]['content'] = markdown.markdown(f.read())
-
+        # process pages
         for _, page in pages.items():
             values = self.configs.main | {
                 'page': {
@@ -64,7 +72,7 @@ class Renderer:
                     'bg_title': page['bg'].split('.')[0].replace('-', ' ').rsplit(' ', 1)[0],
                 }
             }
-            with open(self.dir_out + page['name'] + '.html', 'w') as f:
+            with open(self.dir_out + page['name'], 'w') as f:
                 f.write(
                     self.render(
                         self.text(self.pre_baked_page), values
