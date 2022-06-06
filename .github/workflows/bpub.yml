@@ -18,31 +18,40 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
-      - name: install stuff
+      - name: test 1
         run: |
-          pip3 install -r .github/workflows/req.txt
-      - name: assume role
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: ${{ secrets.ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-      - name: get caller identity
-        run: aws sts get-caller-identity
-      - name: prepare upload dir
-        run: mkdir -p upload/assets
-      - name: create pages
-        run: python3 .github/workflows/render.py
-      - name: sync index
+          where python
+      - name: test 2
         run: |
-          cd index
-          aws s3 sync . s3://jj-blog-test/ --delete
-      - name: sync pages
+          where python3
+      - name: test 3
         run: |
-          cd upload
-          ls -R
-          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*.*" --content-type="text/html" \
-            --no-guess-mime-type --metadata-directive "REPLACE"
-          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*" --include "*.*"
+          ls -ls /usr/bin/python*
+#      - name: install stuff
+#        run: |
+#          pip3 install -r .github/workflows/req.txt
+#      - name: assume role
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          role-to-assume: ${{ secrets.ROLE_ARN }}
+#          aws-region: ${{ secrets.AWS_REGION }}
+#      - name: get caller identity
+#        run: aws sts get-caller-identity
+#      - name: prepare upload dir
+#        run: mkdir -p upload/assets
+#      - name: create pages
+#        run: python3 .github/workflows/render.py
+#      - name: sync index
+#        run: |
+#          cd index
+#          aws s3 sync . s3://jj-blog-test/ --delete
+#      - name: sync pages
+#        run: |
+#          cd upload
+#          ls -R
+#          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*.*" --content-type="text/html" \
+#            --no-guess-mime-type --metadata-directive "REPLACE"
+#          aws s3 sync . s3://jj-blog-test/pages/ --delete --exclude "*" --include "*.*"
       # TODO: invalidate cloudfront cache?
 #      - name: invalidate cloudfront cache
 #        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
