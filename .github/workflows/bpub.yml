@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 1
       - name: install stuff
         run: |
-          brew install pandoc
+          pip3 install -r .github/workflows/req.txt
       - name: assume role
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -32,7 +32,7 @@ jobs:
       - name: prepare upload dir
         run: mkdir -p upload/assets
       - name: create pages
-        run: .github/workflows/pages.sh create
+        run: python3 .github/workflows/render.py
       - name: sync index
         run: |
           cd index
