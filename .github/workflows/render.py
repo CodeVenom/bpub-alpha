@@ -11,6 +11,7 @@ from jinja2 import Environment, FileSystemLoader
 
 class Renderer:
     dir_configs = 'configs/'
+    dir_index = 'index/'
     dir_out = 'upload/'
     dir_pages = 'pages/'
     dir_snippets = 'snippets/'
@@ -19,6 +20,16 @@ class Renderer:
     def __init__(self):
         self.configs = type('', (object,), {
             'main': {},
+            # TODO: iterate through snippets dir
+            'snippets': {
+                'article': self.raw_snippet('article.html'),
+                'bg': self.raw_snippet('bg.html'),
+                'js_core': self.raw_snippet('js-core.html'),
+                'meta': self.raw_snippet('meta.html'),
+                'nav': self.raw_snippet('nav.html'),
+                'page_list': self.raw_snippet('page-list.html'),
+                'style': self.raw_snippet('style.html'),
+            }
             # TODO: add full/merged config here
         })()
         with open(self.dir_configs + 'main.yml', 'r') as f:
@@ -30,7 +41,8 @@ class Renderer:
             'textual': Environment(),
         })()
 
-        self.pre_baked_page = self.pre_bake_page()
+        self.pre_baked_blog_overview = self.pre_bake('blog-overview.html')
+        self.pre_baked_page = self.pre_bake('page.html')
 
     # - - - - - actions - - - - -
     def all(self):
@@ -38,6 +50,11 @@ class Renderer:
         shutil.copytree(
             src=self.dir_static,
             dst=self.dir_out,
+            dirs_exist_ok=True
+        )
+        shutil.copytree(
+            src=self.dir_static,
+            dst=self.dir_index,
             dirs_exist_ok=True
         )
         # create pages dict
@@ -58,20 +75,27 @@ class Renderer:
                     'date': find_in_file_stream(f, r'^\d').split(',')[0],
                     # TODO: maybe should pre-bake pages separately
                     'content': '',
-                    'bg': glob.glob(self.dir_pages + page + '/assets/*-bg.*')[0].split('/')[-1],
+                    'bg_src': glob.glob(self.dir_pages + page + '/assets/*-bg.*')[0].split('/')[-1],
                 }
+                pages[page]['bg_title'] = pages[page]['bg_src'].split('.')[0].replace('-', ' ').rsplit(' ', 1)[0]
                 f.seek(0, 0)
                 pages[page]['content'] = markdown.markdown(f.read())
-        # process pages
-        for _, page in pages.items():
+        # create blog overview
+        with open(self.dir_index + 'blog-overview.html', 'w') as f:
             values = self.configs.main | {
                 'page': {
-                    'title': page['title'],
-                    'content': page['content'],
-                    'bg_src': page['bg'],
-                    'bg_title': page['bg'].split('.')[0].replace('-', ' ').rsplit(' ', 1)[0],
-                }
+                    'title': 'Blog Overview'
+                },
+                'pages': pages.values(),
             }
+            f.write(
+                self.render(
+                    self.text(self.pre_baked_blog_overview), values
+                )
+            )
+        # process pages
+        for _, page in pages.items():
+            values = self.configs.main | {'page': page}
             with open(self.dir_out + page['name'], 'w') as f:
                 # TODO: introduce convenience function for text/string render
                 f.write(
@@ -86,19 +110,9 @@ class Renderer:
         return 0
 
     # - - - - - complex helpers - - - - -
-    def pre_bake_page(self):
-        template = self.template('page.html')
-        # TODO: remove j.css and j.js from snippets dir
-        # TODO: iterate through snippets dir
-        # TODO: move snippets map to init block
-        values = {
-            'article': self.raw_snippet('article.html'),
-            'bg': self.raw_snippet('bg.html'),
-            'js_core': self.raw_snippet('js-core.html'),
-            'meta': self.raw_snippet('meta.html'),
-            'nav': self.raw_snippet('nav.html'),
-            'style': self.raw_snippet('style.html'),
-        }
+    def pre_bake(self, key):
+        template = self.template(key)
+        values = self.configs.snippets
         return self.render(template, values)
 
     # - - - - - simple helpers - - - - -

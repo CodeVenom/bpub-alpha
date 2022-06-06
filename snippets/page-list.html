@@ -1,0 +1,7 @@
+<section class="blog-overview">
+    <div class="article-list">
+        {% for page in values.pages %}
+        <a href="https://blog.yay-store.com/pages/{{ page.name }}">{{ page.title }}</a>
+        {% endfor %}
+    </div>
+</section>

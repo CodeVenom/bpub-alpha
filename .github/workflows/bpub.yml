@@ -30,8 +30,10 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: get caller identity
         run: aws sts get-caller-identity
-      - name: prepare upload dir
-        run: mkdir -p upload/assets
+      - name: prepare directories
+        run: |
+          mkdir -p index
+          mkdir -p upload/assets
       - name: create pages
         run: python3.9 .github/workflows/render.py
       - name: sync index
@@ -48,3 +50,4 @@ jobs:
       # TODO: invalidate cloudfront cache?
 #      - name: invalidate cloudfront cache
 #        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+# aws cloudfront create-invalidation --distribution-id EFJQGFB6Y8VYU --paths "/*"
